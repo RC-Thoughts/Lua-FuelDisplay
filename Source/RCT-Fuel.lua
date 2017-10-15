@@ -1,12 +1,22 @@
 --[[
 	---------------------------------------------------------
-    Fuel.....
+            RCT FuelDisplay for RCT Jeti FuelSensor
+    ---------------------------------------------------------
     
+    All-In-One app to display all information in one double
+    telemetry-screen on main-screen.
     
+    Features:
+    - Minimal settings
+    - Bar graph for fuel remaining, "Fuel tank"
+    - Fuel flow as number-value
+    - Fuel sonsumption as number-value
+    
+    German translation by Alexander Fromm - Vielen danke!
 	---------------------------------------------------------
-	Percentage application is part of RC-Thoughts Jeti Tools.
+	RCT FuelDisplay is part of RC-Thoughts Jeti Tools.
 	---------------------------------------------------------
-	Released under MIT-license by Tero @ RC-Thoughts.com 2016
+	Released under MIT-license by Tero @ RC-Thoughts.com 2017
 	---------------------------------------------------------
 --]]
 collectgarbage()
@@ -23,46 +33,48 @@ local function setLanguage()
     if(obj) then
         trans18 = obj[lng] or obj[obj.default]
     end
+    collectgarbage()
 end
 --------------------------------------------------------------------------------
 local function FuelGauge(percentage, ox, oy)
     
-  -- Fuel bar 
-  lcd.drawRectangle (5+ox,53+oy,25,11)
-  lcd.drawRectangle (5+ox,41+oy,25,11)  
-  lcd.drawRectangle (5+ox,29+oy,25,11)  
-  lcd.drawRectangle (5+ox,17+oy,25,11)  
-  lcd.drawRectangle (5+ox,5+oy,25,11)
-  -- Bar chart
-  local nSolidBar = math.floor( percentage / 20 )
-  local nFracBar = (percentage - nSolidBar * 20) / 20
-  local i
-  -- Solid bars
-  for i=0, nSolidBar - 1, 1 do 
-    lcd.drawFilledRectangle (5+ox,53-i*12+oy,25,11) 
-  end  
-  -- Fractional bar
-  local y = math.floor( 53-nSolidBar*12+(1-nFracBar)*11 + 0.5)
-  lcd.drawFilledRectangle (5+ox,y+oy,25,11*nFracBar) 
-  -- Set fized text's
-  lcd.drawText(40, 1, trans18.fuelCons, FONT_MINI)
-  lcd.drawText(40, 36, trans18.fuelFlow, FONT_MINI)
-  lcd.drawText(128, 15, trans18.consUnit, FONT_BOLD)
-  lcd.drawText(108, 49, trans18.flowUnit, FONT_BOLD)
-  -- Display flow & consumption-values
-  lcd.drawText(126 - lcd.getTextWidth(FONT_BIG,string.format("%.0f",consumption)),12,string.format("%.0f",consumption),FONT_BIG)
-  lcd.drawText(106 - lcd.getTextWidth(FONT_BIG,string.format("%.0f",flow)),46,string.format("%.0f",flow),FONT_BIG)
+    -- Fuel bar 
+    lcd.drawRectangle (5+ox,53+oy,25,11)
+    lcd.drawRectangle (5+ox,41+oy,25,11)  
+    lcd.drawRectangle (5+ox,29+oy,25,11)  
+    lcd.drawRectangle (5+ox,17+oy,25,11)  
+    lcd.drawRectangle (5+ox,5+oy,25,11)
+    -- Bar chart
+    local nSolidBar = math.floor( percentage / 20 )
+    local nFracBar = (percentage - nSolidBar * 20) / 20
+    local i
+    -- Solid bars
+    for i=0, nSolidBar - 1, 1 do 
+        lcd.drawFilledRectangle (5+ox,53-i*12+oy,25,11) 
+    end  
+    -- Fractional bar
+    local y = math.floor( 53-nSolidBar*12+(1-nFracBar)*11 + 0.5)
+    lcd.drawFilledRectangle (5+ox,y+oy,25,11*nFracBar) 
+    -- Set fized text's
+    lcd.drawText(40, 1, trans18.fuelCons, FONT_MINI)
+    lcd.drawText(40, 36, trans18.fuelFlow, FONT_MINI)
+    lcd.drawText(128, 15, trans18.consUnit, FONT_BOLD)
+    lcd.drawText(108, 49, trans18.flowUnit, FONT_BOLD)
+    -- Display flow & consumption-values
+    lcd.drawText(126 - lcd.getTextWidth(FONT_BIG,string.format("%.0f",consumption)),12,string.format("%.0f",consumption),FONT_BIG)
+    lcd.drawText(106 - lcd.getTextWidth(FONT_BIG,string.format("%.0f",flow)),46,string.format("%.0f",flow),FONT_BIG)
+    collectgarbage()
 end
 --------------------------------------------------------------------------------
 local function dispFuel(width, height)
-  -- Set max percentage to 99 for drawing
-  if( fuelRemaining > 99 ) then 
-      fuelRemaining = 99
-  end
-  FuelGauge(fuelRemaining, 1, 0)   
-  -- Field lines
-  lcd.drawLine(37,2,37,66)  
-  lcd.drawLine(37,35,148,35)
+    -- Set max percentage to 99 for drawing
+    if( fuelRemaining > 99 ) then 
+        fuelRemaining = 99
+    end
+    FuelGauge(fuelRemaining, 1, 0)   
+    -- Field lines
+    lcd.drawLine(37,2,37,66)  
+    lcd.drawLine(37,35,148,35)
 end
 --------------------------------------------------------------------------------
 -- Take care of user's settings-changes
@@ -86,18 +98,18 @@ local function initForm(formID)
     -- List sensors only if menu is active to preserve memory at runtime 
     -- (measured up to 25% save if menu is not opened)
     sensorsAvailable = {}
-  local available = system.getSensors();
-  local list={}
-  local curIndex=-1
-  local descr = ""
-  for index,sensor in ipairs(available) do 
-    if(sensor.param == 0) then
-      list[#list+1] = sensor.label
-      sensorsAvailable[#sensorsAvailable+1] = sensor
-      if(sensor.id==sensorId ) then
-        curIndex=#sensorsAvailable
-      end 
-    end
+    local available = system.getSensors();
+    local list={}
+    local curIndex=-1
+    local descr = ""
+    for index,sensor in ipairs(available) do 
+        if(sensor.param == 0) then
+            list[#list+1] = sensor.label
+            sensorsAvailable[#sensorsAvailable+1] = sensor
+            if(sensor.id==sensorId ) then
+                curIndex=#sensorsAvailable
+            end 
+        end
     end 
     
     local form, addRow, addLabel = form, form.addRow ,form.addLabel
@@ -171,7 +183,7 @@ local function init()
     collectgarbage()
 end
 --------------------------------------------------------------------------------
-fuelVersion = "1.0"
+fuelVersion = "1.1"
 setLanguage()
 collectgarbage()
 return {init=init, loop=loop, author="RC-Thoughts", version=fuelVersion, name=trans18.appName}

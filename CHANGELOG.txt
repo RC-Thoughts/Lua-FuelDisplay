@@ -7,4 +7,8 @@
 ------------------------------------------------------------
 2017-10-15  Tero Salminen  <tero@rc-thoughts.com>
 
+    * v.1.1 Added German translation
+    
+2017-10-15  Tero Salminen  <tero@rc-thoughts.com>
+
     * v.1.0 First release

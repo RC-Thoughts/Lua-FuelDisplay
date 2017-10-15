@@ -11,5 +11,17 @@
     "fuelCons":"Consumption",
     "flowUnit":"ml/m",
     "consUnit":"ml"
+  },
+  "de":{
+    "appName":"RCT-TankAnzeige",
+    "labelSensor":"Sensor Einstellungen",
+    "sensorSel":"Sensorauswahl",
+    "labelAlarm":"Alarm Einstellungen",
+    "alarmValue":"Treibstoffalarm bei (%)",
+    "voiceFile":"Alarmansage",
+    "fuelFlow":"Treibstoffdurchfluss",
+    "fuelCons":"Verbrauch",
+    "flowUnit":"ml/m",
+    "consUnit":"ml"
   }
 }
