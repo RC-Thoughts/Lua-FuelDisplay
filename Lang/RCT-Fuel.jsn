@@ -1,0 +1,15 @@
+{
+  "default":"en",
+  "en":{
+    "appName":"RCT-FuelDisplay",
+    "labelSensor":"Sensor Settings",
+    "sensorSel":"Select Sensor",
+    "labelAlarm":"Alarm Settings",
+    "alarmValue":"Fuel Alarm At (%)",
+    "voiceFile":"Alarm Voice",
+    "fuelFlow":"Fuel Flow",
+    "fuelCons":"Consumption",
+    "flowUnit":"ml/m",
+    "consUnit":"ml"
+  }
+}
