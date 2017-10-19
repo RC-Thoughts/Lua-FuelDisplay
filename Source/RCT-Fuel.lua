@@ -161,7 +161,7 @@ local function loop()
         fuelRemaining = sensor.value
     end
     -- If we have consumed more than allowed sound alarmValue
-    if(not playDone and fuelRemaining <= alarmValue and alarmVoice ~= "...") then
+    if(not playDone and fuelRemaining <= alarmValue and alarmVoice ~= "..." and sensor and sensor.valid) then
         system.playFile(alarmVoice,AUDIO_QUEUE)
         system.playNumber(fuelRemaining, 0, "%")
         playDone = true   
@@ -183,7 +183,7 @@ local function init()
     collectgarbage()
 end
 --------------------------------------------------------------------------------
-fuelVersion = "1.1"
+fuelVersion = "1.2"
 setLanguage()
 collectgarbage()
 return {init=init, loop=loop, author="RC-Thoughts", version=fuelVersion, name=trans18.appName}

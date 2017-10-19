@@ -7,6 +7,11 @@
 ------------------------------------------------------------
 2017-10-15  Tero Salminen  <tero@rc-thoughts.com>
 
+    * v.1.2 Warning-announcement possible only if sensor 
+            is active
+    
+2017-10-15  Tero Salminen  <tero@rc-thoughts.com>
+
     * v.1.1 Added German translation
     
 2017-10-15  Tero Salminen  <tero@rc-thoughts.com>
